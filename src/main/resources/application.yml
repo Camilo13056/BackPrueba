@@ -1,0 +1,11 @@
+server:
+  port: 3004
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/PruebaBD?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: fabrica
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
