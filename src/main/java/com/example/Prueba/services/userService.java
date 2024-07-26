@@ -50,4 +50,10 @@ public class userService {
                     return false;
                 }
             }
+
+    public Optional<userModel> authenticateUser(String email, String password) {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getEmail().equals(email) && user.getPassword().equals(password))
+                .findFirst();
+    }
 }

@@ -46,4 +46,14 @@ public class userController {
             return "Error";
         }
     }
+    @PostMapping("/login")
+    public String login(@RequestBody userModel loginRequest) {
+        Optional<userModel> user = userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
+        if (user.isPresent()) {
+            return "Inicio de sesión exitoso";
+        } else {
+            return "Credenciales inválidas";
+        }
+    }
 }
+
