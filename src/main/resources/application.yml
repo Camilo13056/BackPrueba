@@ -1,25 +1,21 @@
 spring:
-
-  application:
-    name: pruebadb
-
   datasource:
     url: jdbc:postgresql://localhost:5432/pruebadb
-    username: postgres
+    username: fabrica
     password: "admin"
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: create-drop
-    #      ddl-auto: none
-
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+
+
   main:
     allow-circular-references: true
 
 server:
-  port: 3004
+  port: 3001

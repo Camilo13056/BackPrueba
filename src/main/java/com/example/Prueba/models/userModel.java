@@ -94,5 +94,4 @@ public class userModel {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-    }
+}

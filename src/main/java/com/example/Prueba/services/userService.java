@@ -9,47 +9,45 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-
 public class userService {
 
     @Autowired
     IUserRepository userRepository;
 
-     public ArrayList<userModel> getUsers(){
-                return (ArrayList<userModel>) userRepository.findAll();
-            }
+    public ArrayList<userModel> getUsers(){
+        return (ArrayList<userModel>) userRepository.findAll();
+    }
 
-            public userModel saveUser(userModel user){
-                return userRepository.save(user);
-            }
+    public userModel saveUser(userModel user){
+        return userRepository.save(user);
+    }
 
-            public Optional<userModel> getById(Long id){
-                return userRepository.findById(id);
-            }
+    public Optional<userModel> getById(Long id){
+        return userRepository.findById(id);
+    }
 
-            public userModel updateById(userModel request, Long id) {
-                userModel user = userRepository.findById(id).get();
+    public userModel updateById(userModel request, Long id) {
+        userModel user = userRepository.findById(id).get();
 
-                user.setName(request.getName());
-                user.setLastName(request.getLastName());
-                user.setEmail(request.getEmail());
-                user.setAddress(request.getAddress());
-                user.setPhone(request.getPhone());
-                user.setPassword(request.getPassword());
-                user.setStatus(request.isStatus());
+        user.setName(request.getName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setAddress(request.getAddress());
+        user.setPhone(request.getPhone());
+        user.setPassword(request.getPassword());
+        user.setStatus(request.isStatus());
 
-                return user;
+        return user;
+    }
 
-            }
-
-            public Boolean deleteUser (Long id){
-                try{
-                    userRepository.deleteById(id);
-                    return true;
-                }catch (Exception e){
-                    return false;
-                }
-            }
+    public Boolean deleteUser(Long id){
+        try{
+            userRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 
     public Optional<userModel> authenticateUser(String email, String password) {
         return userRepository.findAll().stream()

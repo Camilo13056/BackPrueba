@@ -10,19 +10,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-
 public class userController {
 
     @Autowired
     private userService userService;
 
     @GetMapping
-    public ArrayList<userModel> getUsers(){
-    return this.userService.getUsers();
+    public ArrayList<userModel> getUsers() {
+        return this.userService.getUsers();
     }
 
     @PostMapping
-    public userModel saveUser(@RequestBody userModel user){
+    public userModel saveUser(@RequestBody userModel user) {
         return this.userService.saveUser(user);
     }
 
@@ -31,21 +30,22 @@ public class userController {
         return this.userService.getById(id);
     }
 
-    @PutMapping
-    public userModel updateUserById(@RequestBody userModel request, Long id){
+    @PutMapping(path = "/{id}")
+    public userModel updateUserById(@RequestBody userModel request, @PathVariable("id") Long id) {
         return this.userService.updateById(request, id);
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") Long id){
+    public String deleteById(@PathVariable("id") Long id) {
         boolean ok = this.userService.deleteUser(id);
 
-        if(ok){
-            return "Usuario con id" + id + " eliminado";
+        if (ok) {
+            return "Usuario con id " + id + " eliminado";
         } else {
             return "Error";
         }
     }
+
     @PostMapping("/login")
     public String login(@RequestBody userModel loginRequest) {
         Optional<userModel> user = userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
@@ -56,4 +56,3 @@ public class userController {
         }
     }
 }
-
