@@ -26,7 +26,11 @@ public class userService {
     public userModel saveUser(userModel user) {
         if (user.getRole() == null) {
             Optional<Role> userRole = roleRepository.findByName("usuario");
-            userRole.ifPresent(user::setRole);
+            if (userRole.isPresent()) {
+                user.setRole(userRole.get());
+            } else {
+                throw new RuntimeException("Rol no encontrado");
+            }
         }
         return userRepository.save(user);
     }
@@ -50,7 +54,11 @@ public class userService {
 
             if (request.getRole() != null && request.getRole().getId() != null) {
                 Optional<Role> roleOptional = roleRepository.findById(request.getRole().getId());
-                roleOptional.ifPresent(user::setRole);
+                if (roleOptional.isPresent()) {
+                    user.setRole(roleOptional.get());
+                } else {
+                    throw new RuntimeException("Rol no encontrado");
+                }
             }
 
             return userRepository.save(user);
@@ -58,6 +66,8 @@ public class userService {
             throw new RuntimeException("Usuario no encontrado");
         }
     }
+
+
 
     public Boolean deleteUser(Long id) {
         try {
