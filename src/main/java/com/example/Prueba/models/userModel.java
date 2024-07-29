@@ -31,6 +31,11 @@ public class userModel {
     @Column
     private boolean status;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -93,5 +98,13 @@ public class userModel {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
