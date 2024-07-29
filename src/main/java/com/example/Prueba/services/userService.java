@@ -27,17 +27,22 @@ public class userService {
     }
 
     public userModel updateById(userModel request, Long id) {
-        userModel user = userRepository.findById(id).get();
+        Optional<userModel> existingUserOptional = userRepository.findById(id);
 
-        user.setName(request.getName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setAddress(request.getAddress());
-        user.setPhone(request.getPhone());
-        user.setPassword(request.getPassword());
-        user.setStatus(request.isStatus());
+        if (existingUserOptional.isPresent()) {
+            userModel user = existingUserOptional.get();
+            user.setName(request.getName());
+            user.setLastName(request.getLastName());
+            user.setEmail(request.getEmail());
+            user.setAddress(request.getAddress());
+            user.setPhone(request.getPhone());
+            user.setPassword(request.getPassword()); //
+            user.setStatus(request.isStatus());
 
-        return user;
+            return userRepository.save(user); //
+        } else {
+            throw new RuntimeException("No se encontro el usuario");
+        }
     }
 
     public Boolean deleteUser(Long id){
