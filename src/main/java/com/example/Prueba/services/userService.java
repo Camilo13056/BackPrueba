@@ -25,7 +25,7 @@ public class userService {
 
     public userModel saveUser(userModel user) {
         if (user.getRole() == null) {
-            Optional<Role> userRole = roleRepository.findByName("usuario");
+            Optional<Role> userRole = roleRepository.findByName("Usuario");
             if (userRole.isPresent()) {
                 user.setRole(userRole.get());
             } else {
@@ -38,6 +38,7 @@ public class userService {
     public Optional<userModel> getById(Long id) {
         return userRepository.findById(id);
     }
+
 
     public userModel updateById(userModel request, Long id) {
         Optional<userModel> existingUserOptional = userRepository.findById(id);
@@ -56,17 +57,20 @@ public class userService {
                 Optional<Role> roleOptional = roleRepository.findById(request.getRole().getId());
                 if (roleOptional.isPresent()) {
                     user.setRole(roleOptional.get());
+                    System.out.println("Rol actualizado a ID: " + request.getRole().getId());
                 } else {
                     throw new RuntimeException("Rol no encontrado");
                 }
             }
+
+            // Debug: Verificar los valores antes de guardar
+            System.out.println("Guardando usuario: " + user);
 
             return userRepository.save(user);
         } else {
             throw new RuntimeException("Usuario no encontrado");
         }
     }
-
 
 
     public Boolean deleteUser(Long id) {

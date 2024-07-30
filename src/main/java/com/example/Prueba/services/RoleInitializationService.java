@@ -17,7 +17,7 @@ public class RoleInitializationService {
 
     @PostConstruct
     public void initializeRoles() {
-        List<String> roles = Arrays.asList("usuario", "administrador", "superadmin");
+        List<String> roles = Arrays.asList("Usuario", "Administrador", "SuperAdmin");
 
         for (String roleName : roles) {
             if (!roleRepository.findByName(roleName).isPresent()) {

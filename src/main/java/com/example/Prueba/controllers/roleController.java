@@ -1,10 +1,11 @@
-// src/main/java/com/example/Prueba/controllers/RoleController.java
 
 package com.example.Prueba.controllers;
 
 import com.example.Prueba.models.Role;
+import com.example.Prueba.repositories.IRoleRepository;
 import com.example.Prueba.services.roleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +19,13 @@ public class roleController {
     @Autowired
     private roleService roleService;
 
+    @Autowired
+    IRoleRepository roleRepository;
+
     @GetMapping
-    public List<Role> getAllRoles() {
-        return roleService.getAllRoles();
+    public ResponseEntity<List<Role>> getAllRoles() {
+        List<Role> roles = roleRepository.findAll();
+        return ResponseEntity.ok(roles);
     }
 
     @GetMapping("/{id}")
