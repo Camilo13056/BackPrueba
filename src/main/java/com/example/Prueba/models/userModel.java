@@ -1,6 +1,8 @@
 package com.example.Prueba.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -32,8 +34,12 @@ public class userModel {
     private boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id")
     private Role role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<taskModel> tasks;
 
     // Getters and setters
     public Long getId() {
@@ -106,5 +112,13 @@ public class userModel {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<taskModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<taskModel> tasks) {
+        this.tasks = tasks;
     }
 }

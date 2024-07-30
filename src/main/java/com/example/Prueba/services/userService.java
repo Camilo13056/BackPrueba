@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,10 @@ public class userService {
 
     public ArrayList<userModel> getUsers() {
         return (ArrayList<userModel>) userRepository.findAll();
+    }
+
+    public List<userModel> getUsersByRole(String roleName) {
+        return userRepository.findByRoleName(roleName);
     }
 
     public userModel saveUser(userModel user) {
@@ -38,7 +43,6 @@ public class userService {
     public Optional<userModel> getById(Long id) {
         return userRepository.findById(id);
     }
-
 
     public userModel updateById(userModel request, Long id) {
         Optional<userModel> existingUserOptional = userRepository.findById(id);
@@ -71,7 +75,6 @@ public class userService {
             throw new RuntimeException("Usuario no encontrado");
         }
     }
-
 
     public Boolean deleteUser(Long id) {
         try {
